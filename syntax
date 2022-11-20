@@ -1,0 +1,30 @@
+date format month 3 initial
+SELECT no_pegawai, nama, date_format(tanggal_lahir,'%d %b ,%y') as tanggal_lahir 
+from pegawai0053;
+
+ages
+select no_pegawai, nama, timestampdiff(year, tanggal_lahir, curdate()) as usia 
+from pegawai0053;
+
+join 2 table
+select l.no_lembur, p.no_pegawai, p.nama as nama_pegawai 
+from pegawai0053 as p,lembur0053 as l 
+WHERE p.no_pegawai=l.no_pegawai;
+
+between and join table
+select p.no_pegawai, p.nama as nama_pegawai, l.upah 
+from pegawai0053 as p,lembur0053 as l 
+WHERE p.no_pegawai=l.no_pegawai 
+HAVING l.upah BETWEEN 50000 and 75000;
+
+sum and join table
+select p.no_pegawai, p.nama as nama_pegawai, sum(l.upah) as total_upah 
+from pegawai0053 as p,lembur0053 as l 
+WHERE p.no_pegawai=l.no_pegawai 
+GROUP BY p.no_pegawai 
+HAVING sum(l.upah)<130000;
+
+date selection
+SELECT * FROM `lembur0053` 
+WHERE upah >75000 
+HAVING month(tgl)='07';
